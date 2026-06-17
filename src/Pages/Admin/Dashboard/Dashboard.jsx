@@ -13,14 +13,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Impor API operasional riil dari sistem lu bray
 import { getAllKelas } from "@/Utils/Apis/KelasApi";
 import { getAllMahasiswa } from "@/Utils/Apis/MahasiswaApi";
 import { getAllDosen } from "@/Utils/Apis/DosenApi";
-import { getAllMataKuliah } from "@/Utils/Apis/MataKuliahApi";
+import { getAllMataKuliah } from "@/Utils/Apis/MatakuliahApi";
 import Heading from "@/Pages/Auth/Components/Heading";
 
-// Palet warna korporat biru dan indigo yang bersih bray
 const BLUE_PALETTE = ["#2563eb", "#3b82f6", "#60a5fa", "#1d4ed8", "#1e3a8a"];
 
 export default function Dashboard() {
@@ -63,11 +61,6 @@ export default function Dashboard() {
     );
   }
 
-  // =========================================================
-  // PIPELINE AGREGASI DATA RIIL SISTEM KE KELOMPOK RECHARTS
-  // =========================================================
-
-  // 1. CHART 1: Komparasi SKS Aktif Mengajar vs Kapasitas Maksimal Dosen
   const dosenChartData = dosen.map((d) => {
     const totalSksDiampu = kelas
       .filter((k) => k.dosen_id === d.id)
@@ -80,7 +73,6 @@ export default function Dashboard() {
     };
   });
 
-  // 2. CHART 2: Komparasi SKS Diambil vs Jatah Maksimal SKS Mahasiswa (Ambil Sampel 5 Mahasiswa)
   const mhsChartData = mahasiswa.slice(0, 5).map((m) => {
     const totalSksDiambil = kelas
       .filter((k) => k.mahasiswa_ids?.includes(m.id))
@@ -93,7 +85,6 @@ export default function Dashboard() {
     };
   });
 
-  // 3. CHART 3: Kepadatan Anggota Mahasiswa per Kelas Mata Kuliah Riil
   const kelasChartData = kelas.map((k) => {
     const targetMatkul = mataKuliah.find((m) => m.id === k.mata_kuliah_id);
     const namaMatkul =
@@ -106,7 +97,6 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6 p-2 font-sans text-slate-800">
-      {/* KOTAK RINGKASAN DATA NETRAL TANPA AKSEN SHADOW BIRU */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
           <p className="text-slate-400 text-[11px] font-bold uppercase tracking-wider">
@@ -143,7 +133,6 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* CHART 1: RECHARTS BAR - BEBAN DOSEN */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
           <Heading
             as="h3"
@@ -181,7 +170,6 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        {/* CHART 2: RECHARTS BAR - SKS & MAKSIMAL SKS MAHASISWA */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
           <Heading
             as="h3"
@@ -209,7 +197,6 @@ export default function Dashboard() {
                 }}
               />
               <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
-              {/* Batang Biru Utama untuk SKS diambil, Batang Biru Muda untuk Plafon Maksimal */}
               <Bar dataKey="SKS Diambil" fill="#2563eb" radius={[4, 4, 0, 0]} />
               <Bar
                 dataKey="Maksimal SKS"
@@ -221,7 +208,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* CHART 3: RECHARTS DONUT - DISTRIBUTION KEPADATAN KELAS RIIL */}
       <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <Heading
           as="h3"

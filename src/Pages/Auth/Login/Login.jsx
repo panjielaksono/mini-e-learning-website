@@ -9,9 +9,8 @@ import { login } from "@/Utils/Apis/AuthApi";
 import { useAuthStateContext } from "@/Utils/Contexts/AuthContext";
 import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
 
-// 🔥 STEP 1: Import gambar riil dari folder assets lu blay
 import virtualImg from "@/assets/virtual.png";
-import logoImg from "@/assets/logo.png"; // Import logo baru lu di sini blay
+import logoImg from "@/assets/logo.png";
 import SilkAurora from "@/Pages/Auth/Components/SilkAurora";
 const Login = () => {
   const navigate = useNavigate();
@@ -52,22 +51,18 @@ const Login = () => {
 
   return (
     <div className="w-full min-h-screen flex bg-slate-50 font-sans antialiased select-none">
-      {/* ================= SEKTOR KIRI: INTERACTIVE WEBGL SILK AURORA ================= */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-end p-12">
-        {/* Jalankan Mesin Shader Tanpa Install Library Eksternal Blay */}
         <SilkAurora
-          baseColor="#020617" // Slate 950 Gelap murni
-          midColor="#0b1329" // Navy Alus Kampus
-          sheenColor="#3b82f6" // Pantulan Cahaya Biru
-          accentColor="#1d4ed8" // Gradasi Aksen Biru Tua
-          speed={0.6} // Aliran lambat elegan
+          baseColor="#020617"
+          midColor="#0b1329"
+          sheenColor="#3b82f6"
+          accentColor="#1d4ed8"
+          speed={0.6}
           intensity={0.8}
         />
 
-        {/* Ambient Dark Overlay di atas Canvas agar Teks Pop-Out */}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent z-10 pointer-events-none" />
 
-        {/* BUNDEL TEKS MINIMALIS DI POJOK BAWAH */}
         <div className="relative z-20 max-w-sm text-left space-y-2 pointer-events-none">
           <h1 className="text-xl font-black tracking-widest font-mono uppercase text-white drop-shadow-md">
             E-Learning System
@@ -78,7 +73,6 @@ const Login = () => {
           </p>
         </div>
       </div>
-      {/* ================= SEKTOR KANAN: AREA FORM LOGIN ================= */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-16 bg-white">
         <div className="w-full max-w-sm space-y-6">
           <div>

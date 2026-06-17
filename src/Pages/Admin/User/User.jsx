@@ -147,7 +147,6 @@ export default function User() {
         title={`Pengaturan Akses: ${selectedUser?.name}`}
       >
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* PILIHAN ROLE (Sesuai Ledger: Hanya Admin & Guest) */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
               Pilih Tipe Role
@@ -161,14 +160,10 @@ export default function User() {
               <option value="Guest">Guest</option>
             </select>
           </div>
-
-          {/* PILIHAN FINE-GRAINED PERMISSION - DI KASIH SCROLL BIAR GAK OVERFLOW BRAY */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">
               Hak Akses Menu & Fitur (Permissions)
             </label>
-
-            {/* UPDATE BARIS DI BAWAH INI BRAY: Tambahin max-h-60 dan overflow-y-auto */}
             <div className="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-100 max-h-60 overflow-y-auto custom-scrollbar">
               {masterPermissions.map((perm) => (
                 <label

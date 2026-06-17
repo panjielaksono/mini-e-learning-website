@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../Auth/Components/Card"; // Impor Card bray
+import Card from "../../Auth/Components/Card";
 import Heading from "../../Auth/Components/Heading";
 import Button from "../../Auth/Components/Button";
 import Input from "../../Auth/Components/Input";
@@ -82,7 +82,6 @@ export default function Matakuliah() {
 
   return (
     <Card>
-      {/* HEADER PATTERN SERAGAM */}
       <div className="flex justify-between items-center mb-6">
         <Heading as="h2" className="mb-0 text-blue-600">
           Daftar Mata Kuliah
@@ -99,14 +98,18 @@ export default function Matakuliah() {
               <th className="p-4 pl-6">Kode Matkul</th>
               <th className="p-4">Nama Mata Kuliah</th>
               <th className="p-4 text-center">Beban SKS</th>
-              {(perms.includes("matakuliah.update") || perms.includes("matakuliah.delete")) && (
+              {(perms.includes("matakuliah.update") ||
+                perms.includes("matakuliah.delete")) && (
                 <th className="p-4 pr-6 text-center">Aksi</th>
               )}
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700 text-sm">
             {mkList.map((mk) => (
-              <tr key={mk.id} className="hover:bg-slate-50/80 transition-colors">
+              <tr
+                key={mk.id}
+                className="hover:bg-slate-50/80 transition-colors"
+              >
                 <td className="p-4 pl-6 font-mono text-indigo-600 font-bold">
                   {mk.kode}
                 </td>
@@ -116,7 +119,8 @@ export default function Matakuliah() {
                     {mk.sks} SKS
                   </span>
                 </td>
-                {(perms.includes("matakuliah.update") || perms.includes("matakuliah.delete")) && (
+                {(perms.includes("matakuliah.update") ||
+                  perms.includes("matakuliah.delete")) && (
                   <td className="p-4 pr-6 flex items-center justify-center gap-2">
                     {perms.includes("matakuliah.update") && (
                       <button
@@ -141,7 +145,12 @@ export default function Matakuliah() {
             {mkList.length === 0 && (
               <tr>
                 <td
-                  colSpan={perms.includes("matakuliah.update") || perms.includes("matakuliah.delete") ? "4" : "3"}
+                  colSpan={
+                    perms.includes("matakuliah.update") ||
+                    perms.includes("matakuliah.delete")
+                      ? "4"
+                      : "3"
+                  }
                   className="p-8 text-center text-slate-400 italic"
                 >
                   Belum ada data mata kuliah yang terdaftar bray.
@@ -152,7 +161,11 @@ export default function Matakuliah() {
         </table>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={isEdit ? "Sunting Mata Kuliah" : "Registrasi Mata Kuliah Baru"}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={isEdit ? "Sunting Mata Kuliah" : "Registrasi Mata Kuliah Baru"}
+      >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="kode">Kode Mata Kuliah</Label>

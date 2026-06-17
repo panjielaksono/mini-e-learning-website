@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "@/Pages/Auth/Components/Button";
 
 const MahasiswaTable = ({
-  data = [], // FIX 1: Kasih default array kosong bray biar kalau datanya telat pas loading ga crash
+  data = [],
   openEditModal,
   onDelete,
   permissions = [],
@@ -22,7 +22,6 @@ const MahasiswaTable = ({
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100 text-slate-700">
-          {/* FIX 2: Validasi dulu apakah beneran berbentuk Array sebelum melakukan .map bray */}
           {data && Array.isArray(data) && data.length > 0 ? (
             data.map((mhs) => (
               <tr
@@ -32,7 +31,9 @@ const MahasiswaTable = ({
                 <td className="p-4 pl-6 font-medium text-slate-800">
                   {mhs.nim}
                 </td>
-                <td className="p-4 font-bold text-slate-800">{mhs.nama || mhs.name || "Nama Kosong"}</td>
+                <td className="p-4 font-bold text-slate-800">
+                  {mhs.nama || mhs.name || "Nama Kosong"}
+                </td>
 
                 {(permissions.includes("mahasiswa.update") ||
                   permissions.includes("mahasiswa.delete")) && (
@@ -66,7 +67,6 @@ const MahasiswaTable = ({
               </tr>
             ))
           ) : (
-            /* Kondisi jika data kosong bray */
             <tr>
               <td
                 colSpan={

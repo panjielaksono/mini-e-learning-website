@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Card from "@/Pages/Auth/Components/Card";
 import Heading from "@/Pages/Auth/Components/Heading";
-// import Button bray, tapi di sini kita pakai button secondary murni
 import { getMahasiswa } from "@/Utils/Apis/MahasiswaApi";
 import { toastError } from "@/Utils/Helpers/ToastHelpers";
 
 const MahasiswaDetail = () => {
-  // Logic fetch detail dll tetap sama bray...
   const { nim } = useParams();
   const navigate = useNavigate();
   const [mahasiswa, setMahasiswa] = useState(null);

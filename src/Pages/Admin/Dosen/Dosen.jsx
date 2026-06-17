@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../Auth/Components/Card"; // Impor Card bray
+import Card from "../../Auth/Components/Card";
 import Heading from "../../Auth/Components/Heading";
 import Button from "../../Auth/Components/Button";
 import Input from "../../Auth/Components/Input";
@@ -81,7 +81,6 @@ export default function Dosen() {
 
   return (
     <Card>
-      {/* HEADER PATTERN SERAGAM */}
       <div className="flex justify-between items-center mb-6">
         <Heading as="h2" className="mb-0 text-blue-600">
           Daftar Dosen
@@ -94,22 +93,27 @@ export default function Dosen() {
       <div className="overflow-hidden border border-slate-100 rounded-xl">
         <table className="w-full text-left border-collapse">
           <thead>
- <tr className="bg-slate-50 border-b border-slate-100 text-slate-600 text-sm font-bold">
+            <tr className="bg-slate-50 border-b border-slate-100 text-slate-600 text-sm font-bold">
               <th className="p-4 pl-6">NIDN</th>
               <th className="p-4">Nama Dosen</th>
               <th className="p-4">Email</th>
-              {(perms.includes("dosen.update") || perms.includes("dosen.delete")) && (
+              {(perms.includes("dosen.update") ||
+                perms.includes("dosen.delete")) && (
                 <th className="p-4 pr-6 text-center">Aksi</th>
               )}
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700 text-sm">
             {dosenList.map((dsn) => (
-              <tr key={dsn.id} className="hover:bg-slate-50/80 transition-colors">
+              <tr
+                key={dsn.id}
+                className="hover:bg-slate-50/80 transition-colors"
+              >
                 <td className="p-4 pl-6 font-medium">{dsn.nidn}</td>
                 <td className="p-4 font-bold text-slate-800">{dsn.nama}</td>
                 <td className="p-4">{dsn.email}</td>
-                {(perms.includes("dosen.update") || perms.includes("dosen.delete")) && (
+                {(perms.includes("dosen.update") ||
+                  perms.includes("dosen.delete")) && (
                   <td className="p-4 pr-6 flex items-center justify-center gap-2">
                     {perms.includes("dosen.update") && (
                       <button
@@ -134,7 +138,12 @@ export default function Dosen() {
             {dosenList.length === 0 && (
               <tr>
                 <td
-                  colSpan={perms.includes("dosen.update") || perms.includes("dosen.delete") ? "4" : "3"}
+                  colSpan={
+                    perms.includes("dosen.update") ||
+                    perms.includes("dosen.delete")
+                      ? "4"
+                      : "3"
+                  }
                   className="p-8 text-center text-slate-400 italic"
                 >
                   Belum ada data dosen pengampu bray.
@@ -145,7 +154,11 @@ export default function Dosen() {
         </table>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={isEdit ? "Sunting Data Dosen" : "Tambah Dosen Baru"}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={isEdit ? "Sunting Data Dosen" : "Tambah Dosen Baru"}
+      >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="nidn">NIDN</Label>

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Input from "@/Pages/Auth/Components/Input";
 import Label from "@/Pages/Auth/Components/Label";
-import Button from "@/Pages/Auth/Components/Button"; // Komponen induk bray
+import Button from "@/Pages/Auth/Components/Button";
 import Heading from "@/Pages/Auth/Components/Heading";
 
 const MahasiswaModal = ({ isOpen, onClose, onSubmit, selectedMahasiswa }) => {
-  // State form dll tetap sama bray...
   const [form, setForm] = useState({ nim: "", nama: "" });
 
   useEffect(() => {
@@ -17,8 +16,6 @@ const MahasiswaModal = ({ isOpen, onClose, onSubmit, selectedMahasiswa }) => {
   }, [selectedMahasiswa]);
 
   if (!isOpen) return null;
-
-  // Handler dll tetap sama bray...
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

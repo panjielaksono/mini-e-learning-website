@@ -2,7 +2,15 @@ import React from "react";
 import Label from "@/Pages/Auth/Components/Label";
 import Button from "@/Pages/Auth/Components/Button";
 
-export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange, form, dosen, mataKuliah }) {
+export default function ModalRencanaStudi({
+  isOpen,
+  onClose,
+  onSubmit,
+  onChange,
+  form,
+  dosen,
+  mataKuliah,
+}) {
   if (!isOpen) return null;
 
   const isMatkulEmpty = !mataKuliah || mataKuliah.length === 0;
@@ -11,14 +19,26 @@ export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange,
     <div className="fixed inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm z-50 transition-opacity">
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-6 border border-slate-100">
         <div className="flex justify-between items-center pb-4 border-b border-slate-100 mb-5">
-          <h2 className="text-base font-black text-slate-900 tracking-tight">Buka Kelas Kuliah Baru</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-2xl font-bold transition-colors cursor-pointer">&times;</button>
+          <h2 className="text-base font-black text-slate-900 tracking-tight">
+            Buka Kelas Kuliah Baru
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-slate-600 text-2xl font-bold transition-colors cursor-pointer"
+          >
+            &times;
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="space-y-4">
           {/* Dropdown Pilihan Mata Kuliah */}
           <div>
-            <Label htmlFor="mata_kuliah_id" className="text-xs font-bold text-slate-700">Mata Kuliah Pilihan</Label>
+            <Label
+              htmlFor="mata_kuliah_id"
+              className="text-xs font-bold text-slate-700"
+            >
+              Mata Kuliah Pilihan
+            </Label>
             <select
               name="mata_kuliah_id"
               value={form.mata_kuliah_id}
@@ -28,13 +48,14 @@ export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange,
               disabled={isMatkulEmpty}
             >
               {isMatkulEmpty ? (
-                <option value="">⚠️ Semua mata kuliah sudah memiliki kelas bray</option>
+                <option value="">
+                  ⚠️ Semua mata kuliah sudah memiliki kelas
+                </option>
               ) : (
                 <>
                   <option value="">-- Pilih Mata Kuliah --</option>
                   {mataKuliah.map((m) => (
                     <option key={m.id} value={m.id}>
-                      {/* FIX SAKTI: Kita paksa baca m.nama dulu baru m.name bray! */}
                       {m.nama || m.name} ({m.sks} SKS)
                     </option>
                   ))}
@@ -42,10 +63,15 @@ export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange,
               )}
             </select>
           </div>
-          
+
           {/* Dropdown Pilihan Dosen */}
           <div>
-            <Label htmlFor="dosen_id" className="text-xs font-bold text-slate-700">Dosen Pengampu Utama</Label>
+            <Label
+              htmlFor="dosen_id"
+              className="text-xs font-bold text-slate-700"
+            >
+              Dosen Pengampu Utama
+            </Label>
             <select
               name="dosen_id"
               value={form.dosen_id}
@@ -56,7 +82,6 @@ export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange,
               <option value="">-- Pilih Dosen Pengampu --</option>
               {dosen.map((d) => (
                 <option key={d.id} value={d.id}>
-                  {/* Jaga-jaga pasang dual key juga buat dosen bray */}
                   {d.nama || d.name}
                 </option>
               ))}
@@ -64,15 +89,15 @@ export default function ModalRencanaStudi({ isOpen, onClose, onSubmit, onChange,
           </div>
 
           <div className="flex justify-end space-x-2 pt-4 border-t border-slate-100 mt-6">
-            <button 
-              type="button" 
-              onClick={onClose} 
+            <button
+              type="button"
+              onClick={onClose}
               className="px-4 py-2 text-sm font-bold text-slate-500 bg-white border border-slate-200 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
             >
               Batal
             </button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="text-sm rounded-xl px-5 py-2 shadow-sm hover:shadow-md transition-all"
               disabled={isMatkulEmpty}
             >

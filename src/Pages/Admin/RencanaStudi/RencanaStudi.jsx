@@ -6,7 +6,12 @@ import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
 import { useAuthStateContext } from "@/Utils/Contexts/AuthContext";
 import { confirmDelete } from "@/Utils/Helpers/SwalHelpers";
 
-import { getAllKelas, updateKelas, deleteKelas, storeKelas } from "@/Utils/Apis/KelasApi";
+import {
+  getAllKelas,
+  updateKelas,
+  deleteKelas,
+  storeKelas,
+} from "@/Utils/Apis/KelasApi";
 import { getAllDosen } from "@/Utils/Apis/DosenApi";
 import { getAllMahasiswa } from "@/Utils/Apis/MahasiswaApi";
 import { getAllMataKuliah } from "@/Utils/Apis/MataKuliahApi";
@@ -31,18 +36,19 @@ export default function RencanaStudi() {
     fetchData();
   }, []);
 
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
-      const [resKelas, resDosen, resMahasiswa, resMataKuliah] = await Promise.all([
-        getAllKelas(),
-        getAllDosen(),
-        getAllMahasiswa(),
-        getAllMataKuliah(),
-      ]);
+      const [resKelas, resDosen, resMahasiswa, resMataKuliah] =
+        await Promise.all([
+          getAllKelas(),
+          getAllDosen(),
+          getAllMahasiswa(),
+          getAllMataKuliah(),
+        ]);
       setKelas(resKelas.data?.data ?? resKelas.data ?? []);
       setDosen(resDosen.data?.data ?? resDosen.data ?? []);
       setMahasiswa(resMahasiswa.data?.data ?? resMahasiswa.data ?? []);
-      
+
       setMataKuliah(resMataKuliah.data?.data ?? resMataKuliah.data ?? []);
     } catch (err) {
       toastError("Gagal mengambil data server rencana studi bray!");
@@ -50,8 +56,10 @@ const fetchData = async () => {
   };
 
   const mataKuliahSudahDipakai = kelas.map((k) => k.mata_kuliah_id);
-  const mataKuliahBelumAdaKelas = mataKuliah.filter((m) => !mataKuliahSudahDipakai.includes(m.id));
- 
+  const mataKuliahBelumAdaKelas = mataKuliah.filter(
+    (m) => !mataKuliahSudahDipakai.includes(m.id),
+  );
+
   const getMaxSks = (id) => mahasiswa.find((m) => m.id === id)?.max_sks || 0;
   const getDosenMaxSks = (id) => dosen.find((d) => d.id === id)?.max_sks || 0;
 
@@ -67,12 +75,14 @@ const fetchData = async () => {
       .reduce((acc, curr) => acc + curr, 0);
 
     const maxSks = getMaxSks(mhsId);
-    
+
     if (totalSksMahasiswa + sks > maxSks) {
-      toastError(`Gagal! SKS melebihi batas maksimal mahasiswa (${maxSks} SKS)`);
+      toastError(
+        `Gagal! SKS melebihi batas maksimal mahasiswa (${maxSks} SKS)`,
+      );
       return;
     }
-    
+
     if (kelasItem.mahasiswa_ids?.includes(mhsId)) {
       toastError("Mahasiswa ini sudah terdaftar di kelas bray!");
       return;
@@ -80,7 +90,7 @@ const fetchData = async () => {
 
     const updated = {
       ...kelasItem,
-      mahasiswa_ids: [...(kelasItem.mahasiswa_ids || []), mhsId]
+      mahasiswa_ids: [...(kelasItem.mahasiswa_ids || []), mhsId],
     };
 
     await updateKelas(kelasItem.id, updated);
@@ -92,7 +102,9 @@ const fetchData = async () => {
   const handleDeleteMahasiswa = async (kelasItem, mhsId) => {
     const updated = {
       ...kelasItem,
-      mahasiswa_ids: (kelasItem.mahasiswa_ids || []).filter((id) => id !== mhsId)
+      mahasiswa_ids: (kelasItem.mahasiswa_ids || []).filter(
+        (id) => id !== mhsId,
+      ),
     };
 
     await updateKelas(kelasItem.id, updated);
@@ -109,11 +121,14 @@ const fetchData = async () => {
       .map((k) => mataKuliah.find((m) => m.id === k.mata_kuliah_id)?.sks || 0)
       .reduce((acc, curr) => acc + curr, 0);
 
-    const kelasSks = mataKuliah.find((m) => m.id === kelasItem.mata_kuliah_id)?.sks || 0;
+    const kelasSks =
+      mataKuliah.find((m) => m.id === kelasItem.mata_kuliah_id)?.sks || 0;
     const maxSks = getDosenMaxSks(dsnId);
 
     if (totalSksDosen + kelasSks > maxSks) {
-      toastError(`Gagal! Dosen mengampu melebihi batas maksimal SKS (${maxSks} SKS)`);
+      toastError(
+        `Gagal! Dosen mengampu melebihi batas maksimal SKS (${maxSks} SKS)`,
+      );
       return;
     }
 
@@ -144,7 +159,7 @@ const fetchData = async () => {
     const payload = {
       ...form,
       nama: `A11.46${String(kelas.length + 1).padStart(2, "0")}`,
-      mahasiswa_ids: []
+      mahasiswa_ids: [],
     };
     await storeKelas(payload);
     setIsModalOpen(false);
@@ -156,10 +171,8 @@ const fetchData = async () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ROOT UTAMA LANGSUNG CARD BRAY BIAR PRECO PAS DI POJOK KIRI SINKRON SAMA MAHASISWA
   return (
     <Card>
-      {/* HEADER PATTERN SERAGAM & FIX KIRI LURUS */}
       <div className="flex justify-between items-center mb-6">
         <Heading as="h2" className="mb-0 text-blue-600">
           Daftar Rencana Studi

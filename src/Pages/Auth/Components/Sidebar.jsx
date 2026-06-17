@@ -13,7 +13,6 @@ const Sidebar = ({ isOpen }) => {
     navigate("/");
   };
 
-  // Konfigurasi style kelas SVG bawaan bray
   const iconClass = "w-5 h-5 flex-shrink-0 transition-colors duration-150";
 
   return (
@@ -22,7 +21,6 @@ const Sidebar = ({ isOpen }) => {
         isOpen ? "w-64" : "w-20"
       }`}
     >
-      {/* ================= BRAND HEADER SIDEBAR ================= */}
       <div
         className={`flex items-center h-16 border-b border-blue-700/50 px-5 overflow-hidden ${
           isOpen ? "justify-start" : "justify-center"
@@ -38,8 +36,6 @@ const Sidebar = ({ isOpen }) => {
           </span>
         )}
       </div>
-
-      {/* ================= DAFTAR MENU NAVIGASI ================= */}
       <nav className="p-3 space-y-1 flex-1 overflow-y-auto">
         {/* DASHBOARD */}
         {userPermissions.includes("dashboard.page") && (
