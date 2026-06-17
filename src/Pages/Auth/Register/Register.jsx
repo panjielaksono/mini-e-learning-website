@@ -7,7 +7,6 @@ import Heading from "@/Pages/Auth/Components/Heading";
 import Form from "@/Pages/Auth/Components/Form";
 import { registerApi } from "@/Utils/Apis/AuthApi";
 import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
-import virtualImg from "@/assets/virtual.png";
 import SilkAurora from "@/Pages/Auth/Components/SilkAurora";
 
 const Register = () => {

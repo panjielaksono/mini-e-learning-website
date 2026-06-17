@@ -9,8 +9,6 @@ import { login } from "@/Utils/Apis/AuthApi";
 import { useAuthStateContext } from "@/Utils/Contexts/AuthContext";
 import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
 
-import virtualImg from "@/assets/virtual.png";
-import logoImg from "@/assets/logo.png";
 import SilkAurora from "@/Pages/Auth/Components/SilkAurora";
 const Login = () => {
   const navigate = useNavigate();
