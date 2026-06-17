@@ -12,11 +12,10 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
 import { getAllKelas } from "@/Utils/Apis/KelasApi";
 import { getAllMahasiswa } from "@/Utils/Apis/MahasiswaApi";
 import { getAllDosen } from "@/Utils/Apis/DosenApi";
-import { getAllMataKuliah } from "@/Utils/Apis/MatakuliahApi";
+import { getAllMataKuliah } from "@/Utils/Apis/MataKuliahApi";
 import Heading from "@/Pages/Auth/Components/Heading";
 
 const BLUE_PALETTE = ["#2563eb", "#3b82f6", "#60a5fa", "#1d4ed8", "#1e3a8a"];

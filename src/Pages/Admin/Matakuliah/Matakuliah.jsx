@@ -10,7 +10,7 @@ import {
   storeMatakuliah,
   updateMatakuliah,
   deleteMatakuliah,
-} from "../../../Utils/Apis/MatakuliahApi";
+} from "@/Utils/Apis/MataKuliahApi";
 import { confirmDelete } from "../../../Utils/Helpers/SwalHelpers";
 import { toastSuccess, toastError } from "../../../Utils/Helpers/ToastHelpers";
 import { useAuthStateContext } from "@/Utils/Contexts/AuthContext";
@@ -24,10 +24,6 @@ export default function Matakuliah() {
   const { user } = useAuthStateContext();
   const perms = user?.permission || [];
 
-  useEffect(() => {
-    fetchMK();
-  }, []);
-
   const fetchMK = async () => {
     try {
       const res = await getAllMatakuliah();
@@ -37,6 +33,9 @@ export default function Matakuliah() {
     }
   };
 
+  useEffect(() => {
+    fetchMK();
+  }, []);
   const handleOpenCreate = () => {
     setForm({ id: "", kode: "", nama: "", sks: "" });
     setIsEdit(false);
@@ -44,7 +43,12 @@ export default function Matakuliah() {
   };
 
   const handleOpenEdit = (mk) => {
-    setForm(mk);
+    setForm({
+      id: mk.id,
+      kode: mk.kode,
+      nama: mk.nama || mk.name,
+      sks: mk.sks,
+    });
     setIsEdit(true);
     setIsModalOpen(true);
   };
@@ -52,7 +56,12 @@ export default function Matakuliah() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...form, sks: Number(form.sks) };
+      const payload = {
+        id: form.id,
+        kode: form.kode,
+        nama: form.nama,
+        sks: Number(form.sks),
+      };
       if (isEdit) {
         await updateMatakuliah(form.id, payload);
         toastSuccess("Mata kuliah berhasil diperbarui!");
@@ -113,7 +122,9 @@ export default function Matakuliah() {
                 <td className="p-4 pl-6 font-mono text-indigo-600 font-bold">
                   {mk.kode}
                 </td>
-                <td className="p-4 font-bold text-slate-800">{mk.nama}</td>
+                <td className="p-4 font-bold text-slate-800">
+                  {mk.nama || mk.name}
+                </td>
                 <td className="p-4 text-center font-medium">
                   <span className="bg-slate-100 px-2.5 py-1 rounded-md text-slate-600">
                     {mk.sks} SKS

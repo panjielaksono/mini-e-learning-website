@@ -21,7 +21,7 @@ const MahasiswaDetail = () => {
       const res = await getMahasiswa(nim);
       setMahasiswa(res.data);
     } catch (err) {
-      toastError("Gagal mengambil rincian data mahasiswa bray!");
+      toastError("Gagal mengambil rincian data mahasiswa!");
     } finally {
       setLoading(false);
     }
